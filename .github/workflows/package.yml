@@ -1,0 +1,40 @@
+name: Package
+on: 
+  push:
+    tags: [v*]
+
+jobs:
+  package-on-windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: copy file
+        shell: powershell
+        run: |
+          Copy-Item -Path ${{github.workspace}}/LICENSE -Destination '${{github.workspace}}/source/windows'
+      - name: zip
+        shell: powershell
+        run: |
+          7z a kougei-tools_windows.zip '${{github.workspace}}/source/windows'
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: |
+            kougei-tools_windows.zip
+  package-on-ubuntu:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: copy file
+        shell: bash
+        run: |
+          cp '${{github.workspace}}/LICENSE' '${{github.workspace}}/source/Linux'
+      - name: zip
+        shell: bash
+        run: |
+          tar czvf kougei-tools_linux.tgz '${{github.workspace}}/source/Linux' 
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: |
+            kougei-tools_linux.tgz
