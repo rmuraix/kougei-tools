@@ -38,6 +38,6 @@ else {
     }
 }
 Write-Host "kougei-WiFi.1xSTを既知のネットワークに追加" -ForegroundColor "DarkCyan"
-netsh wlan add profile filename="./kougei-WiFi.1xST.xml" #netshは廃止予定の機能
+netsh wlan add profile filename="./kougei-WiFi.1xST.xml"
 
 Write-Host "処理終了" -ForegroundColor "DarkCyan"
